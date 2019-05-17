@@ -1,4 +1,4 @@
-package pl.pks.puzzle;
+package pl.pks;
 
 import org.junit.Test;
 

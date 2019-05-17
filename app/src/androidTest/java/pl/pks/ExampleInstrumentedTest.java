@@ -1,4 +1,4 @@
-package pl.pks.puzzle;
+package pl.pks;
 
 import android.content.Context;
 
@@ -22,6 +22,6 @@ public class ExampleInstrumentedTest {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
-        assertEquals("pl.pks.puzzle", appContext.getPackageName());
+        assertEquals("pl.pks", appContext.getPackageName());
     }
 }
