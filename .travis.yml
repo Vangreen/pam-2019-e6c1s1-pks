@@ -1,6 +1,6 @@
 
 language: android
-install: ant deps
+
 before_install:
   - chmod +x gradlew
 
