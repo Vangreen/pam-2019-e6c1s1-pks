@@ -1,4 +1,4 @@
-package pl.pks;
+package pl.wat.pks;
 
 import androidx.appcompat.app.AppCompatActivity;
 
