@@ -1,4 +1,4 @@
-package pl.pks;
+package pl.wat.pks;
 
 import org.junit.Test;
 
