@@ -3,11 +3,7 @@ sudo: false
 before_install:
   - chmod +x gradlew
   - curl https://gist.githubusercontent.com/noamtamim/b04ef67239d2b43638aa5a9a024a1937/raw/56f1a38dd88a3774b71a063822444f3961d61873/android-sdk-license.sh | sh
-before_script:
-  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
-  - emulator -avd test -no-skin -no-audio -no-window &
-  - android-wait-for-emulator
-  - adb shell input keyevent 82 &
+
 licenses:
       - 'android-sdk-preview-license-52d11cd2'
       - 'android-sdk-license-.+'
@@ -32,7 +28,26 @@ android:
 
     # Specify at least one system image,
     # if you need to run emulator(s) during your tests
-    - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
+
+
+env:
+  global:
+  # install timeout in minutes (2 minutes by default)
+  - ADB_INSTALL_TIMEOUT=8
+
+script:
+        - echo $ADB_INSTALL_TIMEOUT
+        - android list target
+        - ./gradlew clean
+        - ./gradlew assembleDebug
+        - ./gradlew assembleDebugAndroidTest
+
+before_script:
+  - echo no | android create avd --force -n test -t android-21 --abi armeabi-v7a
+  - emulator -avd test -no-skin -no-audio -no-window &
+  - android-wait-for-emulator
+  - adb shell input keyevent 82 &
+
 
 
