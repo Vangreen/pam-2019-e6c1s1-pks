@@ -1,6 +1,10 @@
 language: android
 before_install:
   - chmod +x gradlew
+licenses:
+      - 'android-sdk-preview-license-52d11cd2'
+      - 'android-sdk-license-.+'
+      - 'google-gdk-license-.+'
 android:
   components:
     # Uncomment the lines below if you want to
@@ -24,7 +28,4 @@ android:
     - sys-img-x86-android-26
     - sys-img-armeabi-v7a-android-17
 
-#    licenses:
-#      - 'android-sdk-preview-license-52d11cd2'
-#      - 'android-sdk-license-.+'
-#      - 'google-gdk-license-.+'
+
