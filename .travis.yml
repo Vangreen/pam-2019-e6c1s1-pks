@@ -1,4 +1,7 @@
 language: android
+
+
+
 jdk:
   - oraclejdk8
 sudo: true
@@ -36,7 +39,7 @@ licenses:
 
 
 before_install:
-  -yes | sdkmanager --licenses && yes | sdkmanager --update
+  - RUN yes | sdkmanager --licenses
   - chmod +x gradlew
   - mkdir "$ANDROID_HOME/licenses" || true
   - echo "24333f8a63b6825ea9c5514f83c2829b004d1fee" > "$ANDROID_HOME/licenses/android-sdk-license"
