@@ -1,5 +1,6 @@
 package pl.wat.pks;
 
+import android.util.Log;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
