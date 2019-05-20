@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "216755391326",
+    "firebase_url": "https://pks-app-69.firebaseio.com",
+    "project_id": "pks-app-69",
+    "storage_bucket": "pks-app-69.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216755391326:android:704655472f529fff",
+        "android_client_info": {
+          "package_name": "pl.wat.pks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216755391326-fgcnl9he5i3litnqiv5nmagjtsqks34k.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDg5PwfsMWldWCrKKYXfDOsmX-1FU-GzSA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216755391326-fgcnl9he5i3litnqiv5nmagjtsqks34k.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

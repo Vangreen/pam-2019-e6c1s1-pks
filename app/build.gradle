@@ -28,6 +28,7 @@ dependencies {
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'com.google.android.material:material:1.1.0-alpha06'
+    implementation 'com.google.firebase:firebase-core:16.0.9'
     testImplementation 'junit:junit:4.12'
     testImplementation 'org.mockito:mockito-core:2.7.22'
     testImplementation 'org.powermock:powermock-core:1.7.0RC2'
@@ -41,3 +42,4 @@ dependencies {
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
 }
+apply plugin: 'com.google.gms.google-services'
