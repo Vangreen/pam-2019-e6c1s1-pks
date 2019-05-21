@@ -1,4 +1,4 @@
-package pl.wat.pks.models;
+package pl.wat.pks.models.dto;
 
 
 import lombok.Getter;
