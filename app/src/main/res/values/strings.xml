@@ -1,6 +1,9 @@
 <resources>
     <string name="app_name">PKS</string>
-    <string name="tab1">Aktualne Wykresy</string>
-    <string name="tab2">Portfel</string>
+    <string name="tab1">Portfel</string>
+    <string name="tab2">Aktualne wykresy</string>
     <string name="tab3">Ustawienia</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

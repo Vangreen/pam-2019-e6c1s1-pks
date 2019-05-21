@@ -7,12 +7,20 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/headerLabel"
-        android:layout_width="wrap_content"
+
+
+
+
+    <androidx.viewpager.widget.ViewPager
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/pager" />
+    
+    <com.google.android.material.tabs.TabLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="24dp"/>
-
+        android:id="@+id/tablayout"
+        android:background="@color/colorPrimary"
+        android:minHeight="?attr/actionBarSize"></com.google.android.material.tabs.TabLayout>
     <include layout="@layout/bottom_activity"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
