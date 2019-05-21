@@ -4,13 +4,13 @@
     android:background="@android:color/black">
     <item
         android:id="@+id/bbn_item1"
-        android:color="@color/colorPrimary"
         android:icon="@drawable/ic_chart_white"
-        android:title="Aktualne kursy" />
+        android:title="Aktualne kursy"
+        app:showAsAction="ifRoom"/>
     <item
         android:id="@+id/bbn_item2"
-        android:color="@android:color/holo_green_dark"
         android:icon="@drawable/ic_settings_white_24dp"
-        android:title="Ustawienia" />
+        android:title="Ustawienia"
+        app:showAsAction="ifRoom"/>
 
 </menu>
