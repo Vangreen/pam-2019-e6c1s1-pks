@@ -65,13 +65,13 @@ public class MainActivity extends AppCompatActivity implements Tab1.OnFragmentIn
             public boolean onTabSelected(int position, boolean wasSelected) {
                 switch (position) {
                     case 0:
-                        viewPager.setCurrentItem(0);
+                        viewPager.setCurrentItem(0,false);
                         break;
                     case 1:
-                        viewPager.setCurrentItem(1);
+                        viewPager.setCurrentItem(1,false);
                         break;
                     case 2:
-                        viewPager.setCurrentItem(2);
+                        viewPager.setCurrentItem(2,false);
                         break;
                     default:
                         break;
