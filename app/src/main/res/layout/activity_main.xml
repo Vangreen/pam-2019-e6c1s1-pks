@@ -7,12 +7,14 @@
     tools:context=".MainActivity">
 
 
-    <TextView
-        android:id="@+id/headerLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textSize="24dp"/>
+
+
+
+
+    <pl.wat.pks.NonSwipeableViewPager
+        android:layout_width="match_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/pager" />
 
     <include layout="@layout/bottom_activity"/>
-
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
