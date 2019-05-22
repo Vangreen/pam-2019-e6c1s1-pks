@@ -6,10 +6,9 @@ import lombok.Getter;
 
 @Data
 public class Setting {
-    @Getter
+
     private  String currencyName;
     private  boolean notificationBool;
-    @Getter
     private  double exchangeRateMax;
     private  double exchangeRateMin;
 
