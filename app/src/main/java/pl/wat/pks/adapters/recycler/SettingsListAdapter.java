@@ -1,4 +1,4 @@
-package pl.wat.pks.recyclerAdapters;
+package pl.wat.pks.adapters.recycler;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +14,7 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import java.util.List;
 
 import pl.wat.pks.R;
-import pl.wat.pks.recylerModels.Setting;
+import pl.wat.pks.models.recyler.Setting;
 
 public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
 
@@ -37,8 +37,12 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //Holdery
-        //holder.currencyIcon.setImageDrawable(R.drawable.money_black_24dp);
-        holder.currencyExRateMin.setText(settingsList.get(position).);
+        holder.currencyIcon.setImageDrawable(settingsList.get(position).getCurrencyIcon());
+        String exchangeRateMin = String.valueOf(settingsList.get(position).getExchangeRateMin());
+        holder.currencyExRateMin.setText(exchangeRateMin);
+        String exchangeRateMax = String.valueOf(settingsList.get(position).getExchangeRateMax());
+        holder.currencyExRateMax.setText(exchangeRateMax);
+        holder.notificationSwitch.setChecked(settingsList.get(position).getNotificationBool());
 
     }
 

@@ -1,17 +1,18 @@
-package pl.wat.pks.recylerModels;
+package pl.wat.pks.models.recyler;
+
+import android.graphics.drawable.Drawable;
 
 import lombok.Data;
-import lombok.Getter;
 
 
 @Data
 public class Setting {
-    @Getter
+
     private  String currencyName;
     private  boolean notificationBool;
-    @Getter
     private  double exchangeRateMax;
     private  double exchangeRateMin;
+    private Drawable currencyIcon;
 
     public Setting() {
         this.currencyName = "unknown";
