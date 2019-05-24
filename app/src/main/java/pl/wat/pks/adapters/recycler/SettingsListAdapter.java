@@ -50,6 +50,8 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
 
     }
 
+    
+
     @Override
     public int getItemCount() {
         return settingsList.size();
