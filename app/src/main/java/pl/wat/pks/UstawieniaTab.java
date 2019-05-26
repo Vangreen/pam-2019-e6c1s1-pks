@@ -4,11 +4,14 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import android.util.Log;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
+import pl.wat.pks.rest.RestController;
 
 
 /**
@@ -60,6 +63,9 @@ public class UstawieniaTab extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        BTCCurencyListDTO  btcCurencyListDTO = RestController.getActualValuesInCurrencies();
+//        Log.d("Ustawienia", String.valueOf(btcCurencyListDTO.pln().lastPriceOfBTC()));
+        Log.d("Ustawienia", String.valueOf(btcCurencyListDTO.usd().lastPriceOfBTC()));
     }
 
     @Override

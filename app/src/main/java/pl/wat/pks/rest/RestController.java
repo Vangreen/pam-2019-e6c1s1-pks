@@ -1,7 +1,7 @@
 package pl.wat.pks.rest;
 
 import android.util.Log;
-import com.google.gson.Gson;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,12 +11,37 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestController {
 
-    public CryptoDTO getResponse() {
+    public CryptoDTO getValuesForCharts() {
         Retrofit retrofit = createClient();
-        return getResponse(retrofit);
+        return getValuesForCharts(retrofit);
     }
 
-    private CryptoDTO getResponse(Retrofit retrofit) {
+    public static BTCCurencyListDTO getActualValuesInCurrencies(){
+        Retrofit retrofit = createClient();
+        BTCCurencyListDTO btcCurencyListDTO = RestController.getActualValuesInCurrencies(retrofit);
+        return btcCurencyListDTO;
+    }
+
+    private static BTCCurencyListDTO getActualValuesInCurrencies(Retrofit retrofit) {
+        BlockchainApiService blockchainApiService = retrofit.create(BlockchainApiService.class);
+        Call<BTCCurencyListDTO> btcCurencyListDTOcall = blockchainApiService.getPriceInCurencies();
+        final BTCCurencyListDTO[] btcCurencyListDTO = {null};
+        btcCurencyListDTOcall.enqueue(new Callback<BTCCurencyListDTO>() {
+            @Override
+            public void onResponse(Call<BTCCurencyListDTO> call, Response<BTCCurencyListDTO> response) {
+                btcCurencyListDTO[0] = response.body();
+                Log.d("Ustawienia", response.body().toString());
+            }
+
+            @Override
+            public void onFailure(Call<BTCCurencyListDTO> call, Throwable t) {
+                Log.e(getClass().getSimpleName(), "Błąd w pobraniu aktualnej wartości");
+            }
+        });
+        return btcCurencyListDTO[0];
+    }
+
+    private CryptoDTO getValuesForCharts(Retrofit retrofit) {
         BlockchainApiService blockchainApiService = retrofit.create(BlockchainApiService.class);
         Call<CryptoDTO> cryptoDTOCall = blockchainApiService.getCrypto();
         final CryptoDTO[] cryptoDTO = {null};
