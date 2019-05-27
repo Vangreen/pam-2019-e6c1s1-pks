@@ -6,11 +6,16 @@
     tools:context=".AktualneKursyTab">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="aktualneKursyTab"
-        android:textSize="30dp"
-        android:layout_marginTop="100dp"/>
+    <org.eazegraph.lib.charts.ValueLineChart
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/cubiclinechart"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:egUseCubic="true"
+        app:egUseOverlapFill="true"
+        app:egCurveSmoothness="0.4"
+        app:egIndicatorLineColor="#FE6DA8"
+        app:egLegendHeight="40dp"
+        app:egShowStandardValue="true"/>
 
 </FrameLayout>
