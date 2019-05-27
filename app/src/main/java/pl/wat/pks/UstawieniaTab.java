@@ -3,12 +3,20 @@ package pl.wat.pks;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import pl.wat.pks.adapters.recycler.SettingsListAdapter;
+import pl.wat.pks.models.recycler.CurrencySettingModel;
 
 
 /**
@@ -35,6 +43,9 @@ public class UstawieniaTab extends Fragment {
         // Required empty public constructor
     }
 
+    //Lista
+    private List<CurrencySettingModel> setingsList = new ArrayList<>();
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -60,13 +71,37 @@ public class UstawieniaTab extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+
+        setingsList.add(new CurrencySettingModel("Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.money_black_24dp)));
+        setingsList.add(new CurrencySettingModel("dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.money_black_24dp)));
+
+        for (CurrencySettingModel currencySettingModel : setingsList) {
+            Log.i("Ustawienia", currencySettingModel.toString());
+        }
+
+
+
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.ustawienia_fragment, container, false);
+        View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
+        // 4. znajdź RecyclerView
+        RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
+
+        // 5. utwórz adapter
+        SettingsListAdapter settingsListAdapter = new SettingsListAdapter(setingsList);
+
+        // 6. ustaw adapter dla RecyclerView
+        recyclerView.setAdapter(settingsListAdapter);
+
+        // 7. ustaw rozmieszczenie elementów w RecyclerView
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        return rootView;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
