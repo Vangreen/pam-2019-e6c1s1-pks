@@ -1,16 +1,10 @@
 package pl.wat.pks.rest;
 
-import android.content.Context;
-
 import io.reactivex.Observable;
 import io.reactivex.schedulers.Schedulers;
 import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
 import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
-import pl.wat.pks.rest.BlockchainApiService;
-import pl.wat.pks.rest.RestController;
 
 import static org.junit.Assert.assertEquals;
 

@@ -1,13 +1,9 @@
 package pl.wat.pks.rest;
 
-import android.util.Log;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import io.reactivex.Observable;
 import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
