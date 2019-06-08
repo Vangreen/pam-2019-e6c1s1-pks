@@ -21,6 +21,7 @@ import java.util.List;
 
 import pl.wat.pks.R;
 
+
 public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
 
     private List<CurrencySetting> settingsList;
@@ -44,7 +45,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         //Holdery
         String currencyName = settingsList.get(position).getCurrencyName();
         holder.currencyName.setText(currencyName);
-        holder.currencyIcon.setImageDrawable(settingsList.get(position).getCurrencyIcon());
+        holder.currencyIcon.setImageDrawable(holder.itemView.getContext().getDrawable(settingsList.get(position).getCurrencyIcon()));
         String exchangeRateMin = String.valueOf(settingsList.get(position).getExchangeRateMin());
         holder.currencyExRateMin.setText(exchangeRateMin);
         holder.currencyExRateMin.addTextChangedListener(new TextWatcher() {

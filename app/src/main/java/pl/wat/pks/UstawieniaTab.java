@@ -1,12 +1,14 @@
 package pl.wat.pks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.wat.pks.currency.adding.CurrencyAddingActivity;
 import pl.wat.pks.currency.settings.SettingsListAdapter;
 import pl.wat.pks.currency.settings.CurrencySetting;
 
@@ -72,8 +75,8 @@ public class UstawieniaTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        setingsList.add(new CurrencySetting(1,"Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.ic_btc)));
-        setingsList.add(new CurrencySetting(2, "dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.ic_doge)));
+        setingsList.add(new CurrencySetting(1,"Bitcoin", false, 0.0, 0.0, R.drawable.ic_btc));
+        setingsList.add(new CurrencySetting(2, "dodgecoin", true, 31.25, 13.15, R.drawable.ic_doge));
 
         for (CurrencySetting currencySetting : setingsList) {
             Log.i("Ustawienia", currencySetting.toString());
@@ -88,7 +91,7 @@ public class UstawieniaTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
         // 4. znajdź RecyclerView
         RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
 
@@ -100,6 +103,15 @@ public class UstawieniaTab extends Fragment {
 
         // 7. ustaw rozmieszczenie elementów w RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        final Button button = rootView.findViewById(R.id.addUserSettinsButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(rootView.getContext(), CurrencyAddingActivity.class);
+                startActivity(intent);
+            }
+        });
+
         return rootView;
 
     }
@@ -127,6 +139,8 @@ public class UstawieniaTab extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this
