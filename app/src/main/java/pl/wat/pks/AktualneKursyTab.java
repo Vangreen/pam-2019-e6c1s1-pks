@@ -3,12 +3,18 @@ package pl.wat.pks;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.fragment.app.Fragment;
+import io.reactivex.Observable;
+import io.reactivex.observers.DisposableObserver;
+import io.reactivex.schedulers.Schedulers;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
+import pl.wat.pks.models.dto.CryptoDTO;
+import pl.wat.pks.rest.RestController;
+
 
 import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
@@ -35,6 +41,12 @@ public class AktualneKursyTab extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private Observable<CryptoDTO> cryptoDTOObservable;
+    private Observable<BTCCurencyListDTO> btcCurencyListDTOObservable;
+
+    private CryptoDTO cryptoDTO;
+    private BTCCurencyListDTO btcCurencyListDTO;
+
     public AktualneKursyTab() {
         // Required empty public constructor
     }
@@ -57,6 +69,8 @@ public class AktualneKursyTab extends Fragment {
         return fragment;
     }
 
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,7 +78,59 @@ public class AktualneKursyTab extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        getValuesForCharts();
+        getActualValuesInCurrencies();
     }
+
+    private void getActualValuesInCurrencies() {
+        btcCurencyListDTOObservable = RestController.getActualValuesInCurrencies();
+        btcCurencyListDTOObservable
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(new DisposableObserver<BTCCurencyListDTO>() {
+                    @Override
+                    public void onNext(BTCCurencyListDTO value) {
+                        Log.d("Aktualne", "onNext: " + value.usd().symbol());
+                        btcCurencyListDTO = value;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("Aktualne", "Błąd przy pobraniu aktualnej wartości");
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("Aktualne", "onComplete:");
+                    }
+                });
+    }
+
+    private void getValuesForCharts() {
+        cryptoDTOObservable = RestController.getValuesForCharts();
+        cryptoDTOObservable
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(new DisposableObserver<CryptoDTO>() {
+                    @Override
+                    public void onNext(CryptoDTO value) {
+                        Log.d(getTag(), "onNext: " + value.status());
+                        cryptoDTO = value;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e(getTag(), "Błąd przy pobraniu api");
+                        e.printStackTrace();
+                    }
+
+
+                    @Override
+                    public void onComplete() {
+                        Log.d(getTag(), "onComplete:");
+                    }
+                });
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

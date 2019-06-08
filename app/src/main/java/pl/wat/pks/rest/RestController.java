@@ -1,7 +1,9 @@
 package pl.wat.pks.rest;
 
 import android.util.Log;
-import com.google.gson.Gson;
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import io.reactivex.Observable;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -11,34 +13,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RestController {
 
-    public CryptoDTO getResponse() {
+    public static Observable<CryptoDTO> getValuesForCharts() {
         Retrofit retrofit = createClient();
-        return getResponse(retrofit);
+        return getValuesForCharts(retrofit);
     }
 
-    private CryptoDTO getResponse(Retrofit retrofit) {
+    public static Observable<BTCCurencyListDTO> getActualValuesInCurrencies(){
+        Retrofit retrofit = createClient();
+        Observable<BTCCurencyListDTO> btcCurencyListDTO = RestController.getActualValuesInCurrencies(retrofit);
+        return btcCurencyListDTO;
+    }
+
+    private static Observable<BTCCurencyListDTO> getActualValuesInCurrencies(Retrofit retrofit) {
         BlockchainApiService blockchainApiService = retrofit.create(BlockchainApiService.class);
-        Call<CryptoDTO> cryptoDTOCall = blockchainApiService.getCrypto();
-        final CryptoDTO[] cryptoDTO = {null};
-        cryptoDTOCall.enqueue(new Callback<CryptoDTO>() {
-            @Override
-            public void onResponse(Call<CryptoDTO> call, Response<CryptoDTO> response) {
-                cryptoDTO[0] = response.body();
-                            }
+        Observable<BTCCurencyListDTO> btcCurencyListDTOObservable = blockchainApiService.getPriceInCurencies();
+        return btcCurencyListDTOObservable;
+    }
 
-            @Override
-            public void onFailure(Call<CryptoDTO> call, Throwable t) {
-                Log.e(getClass().getSimpleName(), "Błąd w pobraniu API");
-            }
-        });
-        return cryptoDTO[0];
-
+    private static Observable<CryptoDTO> getValuesForCharts(Retrofit retrofit) {
+        BlockchainApiService blockchainApiService = retrofit.create(BlockchainApiService.class);
+        Observable<CryptoDTO> cryptoDTOObservable = blockchainApiService.getCrypto();
+        return cryptoDTOObservable;
     }
 
     private static Retrofit createClient() {
         return new Retrofit.Builder()
                     .baseUrl("https://api.blockchain.info")
                     .addConverterFactory(GsonConverterFactory.create())
+                    .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
                     .build();
     }
 
