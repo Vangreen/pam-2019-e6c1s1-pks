@@ -30,6 +30,7 @@ public class CurrencySettingRepository {
             }
         }).start();
     }
+
     public void insert(final CurrencySetting word) {
         new Thread(new Runnable() {
             public void run() {
@@ -37,6 +38,7 @@ public class CurrencySettingRepository {
             }
         }).start();
     }
+
     public void update(final CurrencySetting word) {
         new Thread(new Runnable() {
             public void run() {
