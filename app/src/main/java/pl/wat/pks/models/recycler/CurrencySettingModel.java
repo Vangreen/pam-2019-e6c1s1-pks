@@ -2,6 +2,8 @@ package pl.wat.pks.models.recycler;
 
 import android.graphics.drawable.Drawable;
 
+import androidx.room.PrimaryKey;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -10,16 +12,12 @@ import lombok.Data;
 @AllArgsConstructor
 public class CurrencySettingModel {
 
-    private  String currencyName;
-    private  boolean notificationBool;
-    private  double exchangeRateMax;
-    private  double exchangeRateMin;
-    private Drawable currencyIcon;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+    public   String currencyName;
+    public  boolean notificationBool;
+    public  double exchangeRateMax;
+    public  double exchangeRateMin;
+    public Drawable currencyIcon;
 
-//    public CurrencySettingModel() {
-//        this.currencyName = "unknown";
-//        this.notificationBool = false;
-//        this.exchangeRateMax = 0;
-//        this.exchangeRateMin = 0;
-//    }
 }
