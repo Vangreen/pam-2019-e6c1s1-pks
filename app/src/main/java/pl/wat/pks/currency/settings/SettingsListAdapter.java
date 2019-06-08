@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -79,12 +80,22 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
             }
         });
         boolean notificationBoll = settingsList.get(position).isNotificationBool();
+        if(notificationBoll) {
+            holder.settingsView.setVisibility(View.VISIBLE);
+        }else{
+            holder.settingsView.setVisibility(View.GONE);
+        }
         holder.notificationSwitch.setChecked(notificationBoll);
         holder.notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 settingsList.get(position).setNotificationBool(holder.notificationSwitch.isChecked());
                 Log.d("SettingChanged", settingsList.get(position).toString());
+                if(holder.notificationSwitch.isChecked()) {
+                    holder.settingsView.setVisibility(View.VISIBLE);
+                }else{
+                    holder.settingsView.setVisibility(View.GONE);
+                }
             }
         });
 
@@ -105,6 +116,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         public EditText currencyExRateMax;
         public EditText currencyExRateMin;
         public TextView currencyName;
+        public LinearLayout settingsView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -114,6 +126,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
             notificationSwitch = itemView.findViewById(R.id.notificationSwitch);
             currencyExRateMax = itemView.findViewById(R.id.currencyExRateMax);
             currencyExRateMin = itemView.findViewById(R.id.currencyExRateMin);
+            settingsView = itemView.findViewById(R.id.settingsLinearLayout);
         }
     }
 }
