@@ -72,7 +72,7 @@ public class UstawieniaTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        setingsList.add(new CurrencySettingModel("Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.money_black_24dp)));
+        setingsList.add(new CurrencySettingModel("Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.ic_btc)));
         setingsList.add(new CurrencySettingModel("dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.money_black_24dp)));
 
         for (CurrencySettingModel currencySettingModel : setingsList) {
