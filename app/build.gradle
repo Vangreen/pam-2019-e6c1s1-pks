@@ -55,5 +55,15 @@ testImplementation 'junit:junit:4.12'
     compileOnly 'org.projectlombok:lombok:1.18.8'
     annotationProcessor 'org.projectlombok:lombok:1.18.8'
     implementation 'androidx.viewpager:viewpager:1.0.0'
+
+    //Room
+    def room_version = "2.1.0-alpha07"
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version"
+    //Pomocnicze klasy związane z cyklem życia Aktywności
+    def lifecycle_version = "2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$lifecycle_version"
+
 }
 apply plugin: 'com.google.gms.google-services'

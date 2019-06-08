@@ -1,8 +1,12 @@
-package pl.wat.pks.adapters.recycler;
+package pl.wat.pks.currency.settings;
 
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -15,13 +19,12 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import java.util.List;
 
 import pl.wat.pks.R;
-import pl.wat.pks.models.recycler.CurrencySettingModel;
 
 public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
 
-    private List<CurrencySettingModel> settingsList;
+    private List<CurrencySetting> settingsList;
 
-    public SettingsListAdapter(List<CurrencySettingModel> settingsList) {this.settingsList = settingsList;}
+    public SettingsListAdapter(List<CurrencySetting> settingsList) {this.settingsList = settingsList;}
 
     @NonNull
     @Override
@@ -36,17 +39,55 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         //Holdery
         String currencyName = settingsList.get(position).getCurrencyName();
         holder.currencyName.setText(currencyName);
         holder.currencyIcon.setImageDrawable(settingsList.get(position).getCurrencyIcon());
         String exchangeRateMin = String.valueOf(settingsList.get(position).getExchangeRateMin());
         holder.currencyExRateMin.setText(exchangeRateMin);
+        holder.currencyExRateMin.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!(s.toString().isEmpty())) {
+                    settingsList.get(position).setExchangeRateMin(Double.parseDouble(s.toString()));
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }
+            }
+        });
         String exchangeRateMax = String.valueOf(settingsList.get(position).getExchangeRateMax());
         holder.currencyExRateMax.setText(exchangeRateMax);
+        holder.currencyExRateMax.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {}
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!(s.toString().isEmpty())) {
+                    settingsList.get(position).setExchangeRateMax(Double.parseDouble(s.toString()));
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }
+            }
+        });
         boolean notificationBoll = settingsList.get(position).isNotificationBool();
         holder.notificationSwitch.setChecked(notificationBoll);
+        holder.notificationSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                settingsList.get(position).setNotificationBool(holder.notificationSwitch.isChecked());
+                Log.d("SettingChanged", settingsList.get(position).toString());
+            }
+        });
+
 
     }
 
