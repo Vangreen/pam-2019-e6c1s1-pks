@@ -90,6 +90,8 @@ public class AktualneKursyTab extends Fragment {
                     @Override
                     public void onNext(BTCCurencyListDTO value) {
                         Log.d("Aktualne", "onNext: " + value.usd().symbol());
+                        Log.d("Aktualne", "onNext: " + value.pln().symbol());
+                        Log.d("Aktualne", "onNext: " + value.eur().symbol());
                         btcCurencyListDTO = value;
                     }
 

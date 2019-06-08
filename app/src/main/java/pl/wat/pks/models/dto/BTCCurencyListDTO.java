@@ -14,7 +14,14 @@ public class BTCCurencyListDTO {
 
     @NonNull
     @SerializedName("USD")
-    private final CurencyInBTCDTO usd;
+    private final CurencyInCryptoDTO usd;
 
+    @NonNull
+    @SerializedName("PLN")
+    private final CurencyInCryptoDTO pln;
+
+    @NonNull
+    @SerializedName("EUR")
+    private final CurencyInCryptoDTO eur;
 
 }
