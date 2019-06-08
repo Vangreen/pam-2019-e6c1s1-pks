@@ -1,3 +1,5 @@
+package pl.wat.pks;
+
 import android.content.Context;
 
 import androidx.room.Database;
