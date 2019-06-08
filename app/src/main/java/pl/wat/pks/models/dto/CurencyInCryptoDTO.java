@@ -1,31 +1,35 @@
-package pl.wat.pks.models.dto.curiencies;
+package pl.wat.pks.models.dto;
+
 
 import com.google.gson.annotations.SerializedName;
 import lombok.Getter;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
-import lombok.ToString;
 import lombok.experimental.Accessors;
+
+import java.math.BigDecimal;
 
 @RequiredArgsConstructor
 @Accessors(fluent = true)
 @Getter
-@ToString
-public class USD  implements Currency{
+public class CurencyInCryptoDTO {
 
     @NonNull
     @SerializedName("15m")
-    private float _15m;
+    private  final float _15m;
     @NonNull
     @SerializedName("last")
-    private float last;
+    private  final float last;
     @NonNull
     @SerializedName("buy")
-    private float buy;
+    private final float buy;
     @NonNull
     @SerializedName("sell")
-    private float sell;
+    private final float sell;
     @NonNull
     @SerializedName("symbol")
-    private String symbol;
+    private final String symbol;
+
+
+
 }
