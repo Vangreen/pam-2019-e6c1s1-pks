@@ -1,4 +1,4 @@
-package pl.wat.pks.models.recycler;
+package pl.wat.pks.currency.settings;
 
 import android.graphics.drawable.Drawable;
 
@@ -10,7 +10,7 @@ import lombok.Data;
 
 @Data
 @AllArgsConstructor
-public class CurrencySettingModel {
+public class CurrencySetting {
 
     @PrimaryKey(autoGenerate = true)
     public int id;

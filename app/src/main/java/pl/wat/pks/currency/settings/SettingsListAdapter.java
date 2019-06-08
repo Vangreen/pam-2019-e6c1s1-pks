@@ -1,4 +1,4 @@
-package pl.wat.pks.adapters.recycler;
+package pl.wat.pks.currency.settings;
 
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -19,13 +19,12 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 import java.util.List;
 
 import pl.wat.pks.R;
-import pl.wat.pks.models.recycler.CurrencySettingModel;
 
 public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapter.ViewHolder> {
 
-    private List<CurrencySettingModel> settingsList;
+    private List<CurrencySetting> settingsList;
 
-    public SettingsListAdapter(List<CurrencySettingModel> settingsList) {this.settingsList = settingsList;}
+    public SettingsListAdapter(List<CurrencySetting> settingsList) {this.settingsList = settingsList;}
 
     @NonNull
     @Override

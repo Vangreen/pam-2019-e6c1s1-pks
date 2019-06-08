@@ -15,8 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.wat.pks.adapters.recycler.SettingsListAdapter;
-import pl.wat.pks.models.recycler.CurrencySettingModel;
+import pl.wat.pks.currency.settings.SettingsListAdapter;
+import pl.wat.pks.currency.settings.CurrencySetting;
 
 
 /**
@@ -44,7 +44,7 @@ public class UstawieniaTab extends Fragment {
     }
 
     //Lista
-    private List<CurrencySettingModel> setingsList = new ArrayList<>();
+    private List<CurrencySetting> setingsList = new ArrayList<>();
 
     /**
      * Use this factory method to create a new instance of
@@ -72,11 +72,11 @@ public class UstawieniaTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        setingsList.add(new CurrencySettingModel("Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.ic_btc)));
-        setingsList.add(new CurrencySettingModel("dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.money_black_24dp)));
+        setingsList.add(new CurrencySetting(1,"Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.ic_btc)));
+        setingsList.add(new CurrencySetting(2, "dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.money_black_24dp)));
 
-        for (CurrencySettingModel currencySettingModel : setingsList) {
-            Log.i("Ustawienia", currencySettingModel.toString());
+        for (CurrencySetting currencySetting : setingsList) {
+            Log.i("Ustawienia", currencySetting.toString());
         }
 
 
