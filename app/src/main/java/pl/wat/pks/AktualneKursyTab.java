@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment;
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
 import pl.wat.pks.rest.RestController;
 
@@ -37,8 +38,10 @@ public class AktualneKursyTab extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     private Observable<CryptoDTO> cryptoDTOObservable;
+    private Observable<BTCCurencyListDTO> btcCurencyListDTOObservable;
 
     private CryptoDTO cryptoDTO;
+    private BTCCurencyListDTO btcCurencyListDTO;
 
     public AktualneKursyTab() {
         // Required empty public constructor
@@ -72,6 +75,31 @@ public class AktualneKursyTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
         getValuesForCharts();
+        getActualValuesInCurrencies();
+    }
+
+    private void getActualValuesInCurrencies() {
+        btcCurencyListDTOObservable = RestController.getActualValuesInCurrencies();
+        btcCurencyListDTOObservable
+                .subscribeOn(Schedulers.io())
+                .subscribeWith(new DisposableObserver<BTCCurencyListDTO>() {
+                    @Override
+                    public void onNext(BTCCurencyListDTO value) {
+                        Log.d("Aktualne", "onNext: " + value.usd().symbol());
+                        btcCurencyListDTO = value;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        Log.e("Aktualne", "Błąd przy pobraniu aktualnej wartości");
+                        e.printStackTrace();
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        Log.d("Aktualne", "onComplete:");
+                    }
+                });
     }
 
     private void getValuesForCharts() {
