@@ -89,21 +89,21 @@ public class AktualneKursyTab extends Fragment {
                 .subscribeWith(new DisposableObserver<BTCCurencyListDTO>() {
                     @Override
                     public void onNext(BTCCurencyListDTO value) {
-                        Log.d("Aktualne", "onNext: " + value.usd().symbol());
-                        Log.d("Aktualne", "onNext: " + value.pln().symbol());
-                        Log.d("Aktualne", "onNext: " + value.eur().symbol());
+                        Log.d(getTag(), "onNext: " + value.usd().symbol());
+                        Log.d(getTag(), "onNext: " + value.pln().symbol());
+                        Log.d(getTag(), "onNext: " + value.eur().symbol());
                         btcCurencyListDTO = value;
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        Log.e("Aktualne", "Błąd przy pobraniu aktualnej wartości");
+                        Log.e(getTag(), "Błąd przy pobraniu aktualnej wartości");
                         e.printStackTrace();
                     }
 
                     @Override
                     public void onComplete() {
-                        Log.d("Aktualne", "onComplete:");
+                        Log.d(getTag(), "onComplete:");
                     }
                 });
     }
