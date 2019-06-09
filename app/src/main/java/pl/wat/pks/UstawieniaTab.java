@@ -10,14 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import pl.wat.pks.currency.adding.CurrencyAddingActivity;
+import pl.wat.pks.currency.settings.CurrencySettingViewModel;
 import pl.wat.pks.currency.settings.SettingsListAdapter;
 import pl.wat.pks.currency.settings.CurrencySetting;
 
@@ -47,7 +50,8 @@ public class UstawieniaTab extends Fragment {
     }
 
     //Lista
-    private List<CurrencySetting> setingsList = new ArrayList<>();
+//    private List<CurrencySetting> setingsList = new ArrayList<>();
+    private SettingsListAdapter adapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -75,12 +79,6 @@ public class UstawieniaTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        setingsList.add(new CurrencySetting(1,"Bitcoin", false, 0.0, 0.0, R.drawable.ic_btc));
-        setingsList.add(new CurrencySetting(2, "dodgecoin", true, 31.25, 13.15, R.drawable.ic_doge));
-
-        for (CurrencySetting currencySetting : setingsList) {
-            Log.i("Ustawienia", currencySetting.toString());
-        }
 
 
 
@@ -92,23 +90,32 @@ public class UstawieniaTab extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
-        // 4. znajdź RecyclerView
+
+
+        // Deklaracja i inicjalizacja ViewModel
+        final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
+        currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
+            @Override
+            public void onChanged(@Nullable final List<CurrencySetting> words) {
+                // pojawiły się nowe recenzje,
+                // zaktualizuj recenzje w adapterze
+                adapter.setSettings(words);
+            }
+        });
+
         RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
 
-        // 5. utwórz adapter
-        SettingsListAdapter settingsListAdapter = new SettingsListAdapter(setingsList);
-
-        // 6. ustaw adapter dla RecyclerView
-        recyclerView.setAdapter(settingsListAdapter);
-
-        // 7. ustaw rozmieszczenie elementów w RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new SettingsListAdapter();
+
+        recyclerView.setAdapter(adapter);
 
         final Button button = rootView.findViewById(R.id.addUserSettinsButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(rootView.getContext(), CurrencyAddingActivity.class);
-                startActivity(intent);
+                // Code here executes on main thread after user presses button
+                currencyViewModel.updateAll(adapter.getSettings());
             }
         });
 

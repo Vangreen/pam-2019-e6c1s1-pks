@@ -46,4 +46,12 @@ public class CurrencySettingRepository {
             }
         }).start();
     }
+
+    public void updateAll(final List<CurrencySetting> words) {
+        new Thread(new Runnable() {
+            public void run() {
+                currencySettingDao.updateAll(words.toArray(new CurrencySetting[words.size()]));
+            }
+        }).start();
+    }
 }

@@ -22,4 +22,10 @@ public interface CurrencySettingDao {
 
     @Query("SELECT * from CurrencySetting")
     LiveData<List<CurrencySetting>> getAllCurrencySettings();
+
+    @Insert
+    void insertAll(CurrencySetting... currencySettings);
+
+    @Update
+    void  updateAll(CurrencySetting... currencySettings);
 }

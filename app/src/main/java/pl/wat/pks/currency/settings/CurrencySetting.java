@@ -7,6 +7,7 @@ import androidx.room.PrimaryKey;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import pl.wat.pks.R;
 
 @Data
 @Entity
@@ -29,5 +30,22 @@ public class CurrencySetting {
         this.currencyIcon = currencyIcon;
     }
 
+    public CurrencySetting(String currencyName, boolean notificationBool, double exchangeRateMax, double exchangeRateMin, int currencyIcon) {
+        this.currencyName = currencyName;
+        this.notificationBool = notificationBool;
+        this.exchangeRateMax = exchangeRateMax;
+        this.exchangeRateMin = exchangeRateMin;
+        this.currencyIcon = currencyIcon;
+    }
 
+    public CurrencySetting() {}
+
+    public static CurrencySetting[] populateData() {
+        return new CurrencySetting[]{
+                new CurrencySetting("bitocin", false, 0, 0, R.drawable.ic_btc),
+                new CurrencySetting("litecoin", false, 0, 0, R.drawable.ic_ltc),
+                new CurrencySetting("dogecoin", false, 0, 0, R.drawable.ic_doge),
+                new CurrencySetting("etherum", false, 0, 0, R.drawable.ic_eth)
+        };
+    }
 }
