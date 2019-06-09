@@ -115,7 +115,13 @@ public class UstawieniaTab extends Fragment {
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // Code here executes on main thread after user presses button
-                currencyViewModel.updateAll(adapter.getSettings());
+                List<CurrencySetting> settingsNew = adapter.getSettings();
+                for(CurrencySetting setting:settingsNew) {
+                    Log.d("Zapisuje", setting.toString());
+                }
+                currencyViewModel.updateAll(settingsNew);
+                adapter.setSettings(settingsNew);
+                adapter.notifyDataSetChanged();
             }
         });
 

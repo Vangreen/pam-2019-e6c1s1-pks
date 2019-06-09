@@ -51,10 +51,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         holder.currencyExRateMin.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                if(!(s.toString().isEmpty())) {
-                    settingsList.get(position).setExchangeRateMin(Double.parseDouble(s.toString()));
-                    Log.d("SettingChanged", settingsList.get(position).toString());
-                }
+
             }
 
             public void beforeTextChanged(CharSequence s, int start,
@@ -62,6 +59,15 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(!(s.toString().isEmpty())) {
+                    settingsList.get(position).setExchangeRateMin(Double.parseDouble(s.toString()));
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                    Log.d("Pozycja", String.valueOf(position));
+                }else{
+                    settingsList.get(position).setExchangeRateMin(0);
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }
 
             }
         });
@@ -70,10 +76,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         holder.currencyExRateMax.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
-                if(!(s.toString().isEmpty())) {
-                    settingsList.get(position).setExchangeRateMax(Double.parseDouble(s.toString()));
-                    Log.d("SettingChanged", settingsList.get(position).toString());
-                }
+
             }
 
             public void beforeTextChanged(CharSequence s, int start,
@@ -81,7 +84,13 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
+                if(!(s.toString().isEmpty())) {
+                    settingsList.get(position).setExchangeRateMax(Double.parseDouble(s.toString()));
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }else{
+                    settingsList.get(position).setExchangeRateMax(0);
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }
             }
         });
         boolean notificationBoll = settingsList.get(position).isNotificationBool();
@@ -123,7 +132,9 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
     }
 
     public List<CurrencySetting> getSettings() {
-        return settingsList;
+        List<CurrencySetting> settingsNew = settingsList;
+        notifyDataSetChanged();
+        return settingsNew;
     }
 
     public static class ViewHolder extends  RecyclerView.ViewHolder {
