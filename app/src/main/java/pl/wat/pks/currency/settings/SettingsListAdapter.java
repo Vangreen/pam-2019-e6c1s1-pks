@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.switchmaterial.SwitchMaterial;
 
 import java.util.List;
+import java.util.Locale;
 
 import pl.wat.pks.R;
 
@@ -46,7 +47,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         String currencyName = settingsList.get(position).getCurrencyName();
         holder.currencyName.setText(currencyName);
         holder.currencyIcon.setImageDrawable(holder.itemView.getContext().getDrawable(settingsList.get(position).getCurrencyIcon()));
-        String exchangeRateMin = String.valueOf(settingsList.get(position).getExchangeRateMin());
+        String exchangeRateMin = String.format(Locale.US,"%6.6f", settingsList.get(position).getExchangeRateMin());
         holder.currencyExRateMin.setText(exchangeRateMin);
         holder.currencyExRateMin.addTextChangedListener(new TextWatcher() {
 
@@ -71,7 +72,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
 
             }
         });
-        String exchangeRateMax = String.valueOf(settingsList.get(position).getExchangeRateMax());
+        String exchangeRateMax = String.format(Locale.US, "%6.6f", settingsList.get(position).getExchangeRateMax());
         holder.currencyExRateMax.setText(exchangeRateMax);
         holder.currencyExRateMax.addTextChangedListener(new TextWatcher() {
 
@@ -89,6 +90,28 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
                     Log.d("SettingChanged", settingsList.get(position).toString());
                 }else{
                     settingsList.get(position).setExchangeRateMax(0);
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }
+            }
+        });
+        String currencyAccoutString = settingsList.get(position).getAccount();
+        holder.currencyAccount.setText(currencyAccoutString);
+        holder.currencyAccount.addTextChangedListener(new TextWatcher() {
+
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!(s.toString().isEmpty())) {
+                    settingsList.get(position).setAccount(s.toString());
+                    Log.d("SettingChanged", settingsList.get(position).toString());
+                }else{
+                    settingsList.get(position).setAccount("");
                     Log.d("SettingChanged", settingsList.get(position).toString());
                 }
             }
@@ -145,6 +168,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
         public EditText currencyExRateMin;
         public TextView currencyName;
         public LinearLayout settingsView;
+        public EditText currencyAccount;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -155,6 +179,7 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
             currencyExRateMax = itemView.findViewById(R.id.currencyExRateMax);
             currencyExRateMin = itemView.findViewById(R.id.currencyExRateMin);
             settingsView = itemView.findViewById(R.id.settingsLinearLayout);
+            currencyAccount = itemView.findViewById(R.id.currencyAccount);
         }
     }
 }
