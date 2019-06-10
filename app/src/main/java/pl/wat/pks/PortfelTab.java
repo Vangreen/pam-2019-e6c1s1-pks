@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import java.util.List;
 
@@ -49,6 +50,8 @@ public class PortfelTab extends Fragment {
         // Required empty public constructor
     }
     private WalletAdapter adapter;
+    private int no_text = 0;
+    TextView noWalletText;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -90,15 +93,21 @@ public class PortfelTab extends Fragment {
                 // zaktualizuj recenzje w adapterze
 //                List<CurrencySetting> list;
 //                list = words;
-//                for (CurrencySetting word:list)
-//                {
-//                    if(!word.isNotificationBool()) {
-//                        list.remove(word);
-//                    }
-//                }
+                for (CurrencySetting word:words)
+                {
+                    Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
+                    Log.d("petla", word.toString());
+                    if(word.isNotificationBool()) {
+                        Log.d("Pusto", "pusto");
+                       noTextAdd();
+                    }
+                }
                 adapter.setSettings(words);
             }
         });
+
+        noWalletText = rootView.findViewById(R.id.noWalletText);
+
 
         RecyclerView recyclerView = rootView.findViewById(R.id.walletRecycler);
 
@@ -107,6 +116,8 @@ public class PortfelTab extends Fragment {
         adapter = new WalletAdapter();
 
         recyclerView.setAdapter(adapter);
+
+
 
         return rootView;
     }
@@ -149,4 +160,19 @@ public class PortfelTab extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void noTextAdd()
+    {
+        this.no_text++;
+        Log.d("Dodaje", String.valueOf(this.no_text));
+        Log.d("Widoczny", String.valueOf(this.no_text));
+        if(this.no_text!=0)
+        {
+            noWalletText.setVisibility(View.VISIBLE);
+        }else{
+            noWalletText.setVisibility(View.GONE);
+        }
+    }
+
+
 }
