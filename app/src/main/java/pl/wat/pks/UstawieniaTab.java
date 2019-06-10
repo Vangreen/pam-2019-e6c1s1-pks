@@ -1,20 +1,26 @@
 package pl.wat.pks;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import pl.wat.pks.currency.settings.CurrencySettingViewModel;
 import pl.wat.pks.currency.settings.SettingsListAdapter;
 import pl.wat.pks.currency.settings.CurrencySetting;
 
@@ -44,7 +50,8 @@ public class UstawieniaTab extends Fragment {
     }
 
     //Lista
-    private List<CurrencySetting> setingsList = new ArrayList<>();
+//    private List<CurrencySetting> setingsList = new ArrayList<>();
+    private SettingsListAdapter adapter;
 
     /**
      * Use this factory method to create a new instance of
@@ -72,12 +79,6 @@ public class UstawieniaTab extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
 
-        setingsList.add(new CurrencySetting(1,"Bitcoin", false, 0.0, 0.0, getResources().getDrawable(R.drawable.ic_btc)));
-        setingsList.add(new CurrencySetting(2, "dodgecoin", true, 31.25, 13.15, getResources().getDrawable(R.drawable.money_black_24dp)));
-
-        for (CurrencySetting currencySetting : setingsList) {
-            Log.i("Ustawienia", currencySetting.toString());
-        }
 
 
 
@@ -88,18 +89,42 @@ public class UstawieniaTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
-        // 4. znajdź RecyclerView
+        final View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
+
+
+        // Deklaracja i inicjalizacja ViewModel
+        final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
+        currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
+            @Override
+            public void onChanged(@Nullable final List<CurrencySetting> words) {
+                // pojawiły się nowe recenzje,
+                // zaktualizuj recenzje w adapterze
+                adapter.setSettings(words);
+            }
+        });
+
         RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
 
-        // 5. utwórz adapter
-        SettingsListAdapter settingsListAdapter = new SettingsListAdapter(setingsList);
-
-        // 6. ustaw adapter dla RecyclerView
-        recyclerView.setAdapter(settingsListAdapter);
-
-        // 7. ustaw rozmieszczenie elementów w RecyclerView
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new SettingsListAdapter();
+
+        recyclerView.setAdapter(adapter);
+
+        final Button button = rootView.findViewById(R.id.addUserSettinsButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                List<CurrencySetting> settingsNew = adapter.getSettings();
+                for(CurrencySetting setting:settingsNew) {
+                    Log.d("Zapisuje", setting.toString());
+                }
+                currencyViewModel.updateAll(settingsNew);
+                adapter.setSettings(settingsNew);
+                adapter.notifyDataSetChanged();
+            }
+        });
+
         return rootView;
 
     }
@@ -127,6 +152,8 @@ public class UstawieniaTab extends Fragment {
         super.onDetach();
         mListener = null;
     }
+
+
 
     /**
      * This interface must be implemented by activities that contain this

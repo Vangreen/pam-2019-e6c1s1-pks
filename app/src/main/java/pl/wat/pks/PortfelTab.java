@@ -4,11 +4,26 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+
+import java.util.List;
+
+import pl.wat.pks.currency.settings.CurrencySetting;
+import pl.wat.pks.currency.settings.CurrencySettingViewModel;
+import pl.wat.pks.currency.settings.SettingsListAdapter;
+import pl.wat.pks.currency.wallet.WalletAdapter;
 
 
 /**
@@ -34,7 +49,9 @@ public class PortfelTab extends Fragment {
     public PortfelTab() {
         // Required empty public constructor
     }
-
+    private WalletAdapter adapter;
+    private int no_text = 0;
+    TextView noWalletText;
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -66,7 +83,43 @@ public class PortfelTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.portfel_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.portfel_fragment, container, false);
+        // Deklaracja i inicjalizacja ViewModel
+        final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
+        currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
+            @Override
+            public void onChanged(@Nullable final List<CurrencySetting> words) {
+                // pojawiły się nowe recenzje,
+                // zaktualizuj recenzje w adapterze
+//                List<CurrencySetting> list;
+//                list = words;
+                for (CurrencySetting word:words)
+                {
+                    Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
+                    Log.d("petla", word.toString());
+                    if(word.isNotificationBool()) {
+                        Log.d("Pusto", "pusto");
+                       noTextAdd();
+                    }
+                }
+                adapter.setSettings(words);
+            }
+        });
+
+        noWalletText = rootView.findViewById(R.id.noWalletText);
+
+
+        RecyclerView recyclerView = rootView.findViewById(R.id.walletRecycler);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+
+        adapter = new WalletAdapter();
+
+        recyclerView.setAdapter(adapter);
+
+
+
+        return rootView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -107,4 +160,19 @@ public class PortfelTab extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+    public void noTextAdd()
+    {
+        this.no_text++;
+        Log.d("Dodaje", String.valueOf(this.no_text));
+        Log.d("Widoczny", String.valueOf(this.no_text));
+        if(this.no_text!=0)
+        {
+            noWalletText.setVisibility(View.VISIBLE);
+        }else{
+            noWalletText.setVisibility(View.GONE);
+        }
+    }
+
+
 }
