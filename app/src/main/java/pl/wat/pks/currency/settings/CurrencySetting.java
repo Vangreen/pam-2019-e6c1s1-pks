@@ -1,15 +1,11 @@
 package pl.wat.pks.currency.settings;
 
-import android.graphics.drawable.Drawable;
-
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.util.Random;
-
-import lombok.AllArgsConstructor;
 import lombok.Data;
 import pl.wat.pks.R;
+
+import java.util.Random;
 
 @Data
 @Entity
