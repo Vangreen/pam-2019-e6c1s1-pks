@@ -2,11 +2,13 @@ package pl.wat.pks.views;
 
 import android.content.Context;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
@@ -118,12 +120,11 @@ public class ActualCourseView extends Fragment {
                 });
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void setValueForChart(CryptoDTO value) {
         ValueLineSeries series = new ValueLineSeries();
         series.setColor(0xFF56B7F1);
-        for(XYCorordinates corordinates : value.coordniateList()){
-            series.addPoint(new ValueLinePoint(corordinates.price()));
-        }
+        value.coordniateList().forEach(corordinates -> series.addPoint(new ValueLinePoint(corordinates.price())));
         mCubicValueLineChart.clearStandardValues();
         mCubicValueLineChart.setShowIndicator(false);
         mCubicValueLineChart.addSeries(series);
