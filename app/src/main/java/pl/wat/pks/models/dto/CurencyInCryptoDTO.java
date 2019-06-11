@@ -7,8 +7,6 @@ import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.Accessors;
 
-import java.math.BigDecimal;
-
 @RequiredArgsConstructor
 @Accessors(fluent = true)
 @Getter
