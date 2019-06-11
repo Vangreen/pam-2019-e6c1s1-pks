@@ -1,8 +1,13 @@
-package pl.wat.pks;
+package pl.wat.pks.views;
 
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
@@ -11,30 +16,23 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.TextView;
-
 import java.util.List;
 
-import pl.wat.pks.currency.settings.CurrencySetting;
+import pl.wat.pks.R;
 import pl.wat.pks.currency.settings.CurrencySettingViewModel;
 import pl.wat.pks.currency.settings.SettingsListAdapter;
-import pl.wat.pks.currency.wallet.WalletAdapter;
+import pl.wat.pks.currency.settings.CurrencySetting;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link PortfelTab.OnFragmentInteractionListener} interface
+ * {@link SettingsView.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link PortfelTab#newInstance} factory method to
+ * Use the {@link SettingsView#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class PortfelTab extends Fragment {
+public class SettingsView extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -46,23 +44,25 @@ public class PortfelTab extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public PortfelTab() {
+    public SettingsView() {
         // Required empty public constructor
     }
-    private WalletAdapter adapter;
-    private int no_text = 0;
-    TextView noWalletText;
+
+    //Lista
+//    private List<CurrencySetting> setingsList = new ArrayList<>();
+    private SettingsListAdapter adapter;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment PortfelTab.
+     * @return A new instance of fragment SettingsView.
      */
     // TODO: Rename and change types and number of parameters
-    public static PortfelTab newInstance(String param1, String param2) {
-        PortfelTab fragment = new PortfelTab();
+    public static SettingsView newInstance(String param1, String param2) {
+        SettingsView fragment = new SettingsView();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -83,7 +83,9 @@ public class PortfelTab extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.portfel_fragment, container, false);
+        final View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
+
+
         // Deklaracja i inicjalizacja ViewModel
         final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
         currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
@@ -91,35 +93,34 @@ public class PortfelTab extends Fragment {
             public void onChanged(@Nullable final List<CurrencySetting> words) {
                 // pojawiły się nowe recenzje,
                 // zaktualizuj recenzje w adapterze
-//                List<CurrencySetting> list;
-//                list = words;
-                for (CurrencySetting word:words)
-                {
-                    Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
-                    Log.d("petla", word.toString());
-                    if(word.isNotificationBool()) {
-                        Log.d("Pusto", "pusto");
-                       noTextAdd();
-                    }
-                }
                 adapter.setSettings(words);
             }
         });
 
-        noWalletText = rootView.findViewById(R.id.noWalletText);
-
-
-        RecyclerView recyclerView = rootView.findViewById(R.id.walletRecycler);
+        RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
 
-        adapter = new WalletAdapter();
+        adapter = new SettingsListAdapter();
 
         recyclerView.setAdapter(adapter);
 
-
+        final Button button = rootView.findViewById(R.id.addUserSettinsButton);
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                // Code here executes on main thread after user presses button
+                List<CurrencySetting> settingsNew = adapter.getSettings();
+                for (CurrencySetting setting : settingsNew) {
+                    Log.d("Zapisuje", setting.toString());
+                }
+                currencyViewModel.updateAll(settingsNew);
+                adapter.setSettings(settingsNew);
+                adapter.notifyDataSetChanged();
+            }
+        });
 
         return rootView;
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -146,6 +147,7 @@ public class PortfelTab extends Fragment {
         mListener = null;
     }
 
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -160,19 +162,4 @@ public class PortfelTab extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
-
-    public void noTextAdd()
-    {
-        this.no_text++;
-        Log.d("Dodaje", String.valueOf(this.no_text));
-        Log.d("Widoczny", String.valueOf(this.no_text));
-        if(this.no_text!=0)
-        {
-            noWalletText.setVisibility(View.VISIBLE);
-        }else{
-            noWalletText.setVisibility(View.GONE);
-        }
-    }
-
-
 }

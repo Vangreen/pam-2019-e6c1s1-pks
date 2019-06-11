@@ -6,7 +6,7 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-import pl.wat.pks.PksAppDatabase;
+import pl.wat.pks.database.PksAppDatabase;
 
 public class CurrencySettingRepository {
 

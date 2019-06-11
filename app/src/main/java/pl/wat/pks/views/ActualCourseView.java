@@ -1,4 +1,4 @@
-package pl.wat.pks;
+package pl.wat.pks.views;
 
 import android.content.Context;
 import android.net.Uri;
@@ -14,6 +14,7 @@ import io.reactivex.schedulers.Schedulers;
 import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
+import pl.wat.pks.R;
 import pl.wat.pks.models.dto.BTCCurencyListDTO;
 import pl.wat.pks.models.dto.CryptoDTO;
 import pl.wat.pks.models.dto.XYCorordinates;
@@ -23,12 +24,12 @@ import pl.wat.pks.rest.RestController;
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link AktualneKursyTab.OnFragmentInteractionListener} interface
+ * {@link ActualCourseView.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link AktualneKursyTab#newInstance} factory method to
+ * Use the {@link ActualCourseView#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AktualneKursyTab extends Fragment {
+public class ActualCourseView extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -48,7 +49,7 @@ public class AktualneKursyTab extends Fragment {
 
     private ValueLineChart mCubicValueLineChart;
 
-    public AktualneKursyTab() {
+    public ActualCourseView() {
         // Required empty public constructor
     }
 
@@ -58,11 +59,11 @@ public class AktualneKursyTab extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment AktualneKursyTab.
+     * @return A new instance of fragment ActualCourseView.
      */
     // TODO: Rename and change types and number of parameters
-    public static AktualneKursyTab newInstance(String param1, String param2) {
-        AktualneKursyTab fragment = new AktualneKursyTab();
+    public static ActualCourseView newInstance(String param1, String param2) {
+        ActualCourseView fragment = new ActualCourseView();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

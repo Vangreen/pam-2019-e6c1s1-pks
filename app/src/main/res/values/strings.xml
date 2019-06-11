@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">PKS</string>
-    <string name="portfelTab">Portfel</string>
-    <string name="aktualneKursyTab">Aktualne wykresy</string>
-    <string name="ustawieniaTab">Ustawienia</string>
+    <string name="walletView">Portfel</string>
+    <string name="actualCourseView">Aktualne wykresy</string>
+    <string name="settingsView">Ustawienia</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

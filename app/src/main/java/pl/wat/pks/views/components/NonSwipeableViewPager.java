@@ -1,4 +1,4 @@
-package pl.wat.pks;
+package pl.wat.pks.views.components;
 
 import android.content.Context;
 import android.util.AttributeSet;

@@ -1,8 +1,11 @@
-package pl.wat.pks;
+package pl.wat.pks.views.components;
 
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentStatePagerAdapter;
+import pl.wat.pks.views.ActualCourseView;
+import pl.wat.pks.views.SettingsView;
+import pl.wat.pks.views.WalletView;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
 
@@ -21,14 +24,14 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
         {
 
             case 0:
-                PortfelTab portfelTab = new PortfelTab();
-                return portfelTab;
+                WalletView walletView = new WalletView();
+                return walletView;
             case 1:
-                AktualneKursyTab aktualneKursyTab = new AktualneKursyTab();
-                return aktualneKursyTab;
+                ActualCourseView actualCourseView = new ActualCourseView();
+                return actualCourseView;
             case 2:
-                UstawieniaTab ustawieniaTab = new UstawieniaTab();
-                return ustawieniaTab;
+                SettingsView settingsView = new SettingsView();
+                return settingsView;
             default:
                 return null;
         }
