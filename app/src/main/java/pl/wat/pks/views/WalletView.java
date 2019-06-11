@@ -48,9 +48,11 @@ public class WalletView extends Fragment {
     public WalletView() {
         // Required empty public constructor
     }
+
     private WalletAdapter adapter;
     private int no_text = 0;
     TextView noWalletText;
+
     /**
      * Use this factory method to create a new instance of
      * this fragment using the provided parameters.
@@ -88,17 +90,13 @@ public class WalletView extends Fragment {
         currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
             @Override
             public void onChanged(@Nullable final List<CurrencySetting> words) {
-                // pojawiły się nowe recenzje,
-                // zaktualizuj recenzje w adapterze
-//                List<CurrencySetting> list;
-//                list = words;
-                for (CurrencySetting word:words)
-                {
+
+                for (CurrencySetting word : words) {
                     Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
                     Log.d("petla", word.toString());
-                    if(word.isNotificationBool()) {
+                    if (word.isNotificationBool()) {
                         Log.d("Pusto", "pusto");
-                       noTextAdd();
+                        noTextAdd();
                     }
                 }
                 adapter.setSettings(words);
@@ -115,7 +113,6 @@ public class WalletView extends Fragment {
         adapter = new WalletAdapter();
 
         recyclerView.setAdapter(adapter);
-
 
 
         return rootView;
@@ -145,30 +142,19 @@ public class WalletView extends Fragment {
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 
-    public void noTextAdd()
-    {
+    public void noTextAdd() {
         this.no_text++;
         Log.d("Dodaje", String.valueOf(this.no_text));
         Log.d("Widoczny", String.valueOf(this.no_text));
-        if(this.no_text!=0)
-        {
+        if (this.no_text != 0) {
             noWalletText.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             noWalletText.setVisibility(View.GONE);
         }
     }
