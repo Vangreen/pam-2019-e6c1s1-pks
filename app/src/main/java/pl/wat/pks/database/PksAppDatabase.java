@@ -1,4 +1,4 @@
-package pl.wat.pks;
+package pl.wat.pks.database;
 
 import android.content.Context;
 
