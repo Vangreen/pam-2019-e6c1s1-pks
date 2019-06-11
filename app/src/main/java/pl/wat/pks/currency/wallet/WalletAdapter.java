@@ -1,29 +1,19 @@
 package pl.wat.pks.currency.wallet;
 
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.google.android.material.switchmaterial.SwitchMaterial;
+import pl.wat.pks.R;
+import pl.wat.pks.currency.settings.CurrencySetting;
 
 import java.util.List;
 import java.util.Locale;
-
-import pl.wat.pks.R;
-import pl.wat.pks.currency.settings.CurrencySetting;
-import pl.wat.pks.currency.settings.SettingsListAdapter;
 
 public class WalletAdapter extends RecyclerView.Adapter<WalletAdapter.ViewHolder> {
     private List<CurrencySetting> settingsList;
