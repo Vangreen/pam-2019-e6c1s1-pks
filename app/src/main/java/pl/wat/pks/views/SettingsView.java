@@ -8,33 +8,20 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-
-import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import pl.wat.pks.R;
+import pl.wat.pks.currency.settings.CurrencySetting;
+import pl.wat.pks.currency.settings.CurrencySettingViewModel;
+import pl.wat.pks.currency.settings.SettingsListAdapter;
 
 import java.util.List;
 
-import pl.wat.pks.R;
-import pl.wat.pks.currency.settings.CurrencySettingViewModel;
-import pl.wat.pks.currency.settings.SettingsListAdapter;
-import pl.wat.pks.currency.settings.CurrencySetting;
 
-
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SettingsView.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SettingsView#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SettingsView extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -45,21 +32,12 @@ public class SettingsView extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public SettingsView() {
-        // Required empty public constructor
     }
 
-    //Lista
-//    private List<CurrencySetting> setingsList = new ArrayList<>();
+
     private SettingsListAdapter adapter;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SettingsView.
-     */
+
     // TODO: Rename and change types and number of parameters
     public static SettingsView newInstance(String param1, String param2) {
         SettingsView fragment = new SettingsView();
@@ -82,20 +60,10 @@ public class SettingsView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         final View rootView = inflater.inflate(R.layout.ustawienia_fragment, container, false);
 
-
-        // Deklaracja i inicjalizacja ViewModel
         final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
-        currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
-            @Override
-            public void onChanged(@Nullable final List<CurrencySetting> words) {
-                // pojawiły się nowe recenzje,
-                // zaktualizuj recenzje w adapterze
-                adapter.setSettings(words);
-            }
-        });
+        currencyViewModel.getAllCurrencySettings().observe(this, words -> adapter.setSettings(words));
 
         RecyclerView recyclerView = rootView.findViewById(R.id.currencySetingsRecycler);
 
@@ -108,7 +76,6 @@ public class SettingsView extends Fragment {
         final Button button = rootView.findViewById(R.id.addUserSettinsButton);
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                // Code here executes on main thread after user presses button
                 List<CurrencySetting> settingsNew = adapter.getSettings();
                 for (CurrencySetting setting : settingsNew) {
                     Log.d("Zapisuje", setting.toString());
@@ -123,12 +90,7 @@ public class SettingsView extends Fragment {
 
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
+
 
     @Override
     public void onAttach(Context context) {
@@ -148,18 +110,8 @@ public class SettingsView extends Fragment {
     }
 
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
+
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
 }
