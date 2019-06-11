@@ -3,39 +3,24 @@ package pl.wat.pks.views;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import java.util.List;
-
+import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import pl.wat.pks.R;
 import pl.wat.pks.currency.settings.CurrencySetting;
 import pl.wat.pks.currency.settings.CurrencySettingViewModel;
 import pl.wat.pks.currency.wallet.WalletAdapter;
 
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link WalletView.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link WalletView#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class WalletView extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -46,21 +31,12 @@ public class WalletView extends Fragment {
     private OnFragmentInteractionListener mListener;
 
     public WalletView() {
-        // Required empty public constructor
     }
 
     private WalletAdapter adapter;
     private int no_text = 0;
     TextView noWalletText;
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment WalletView.
-     */
     // TODO: Rename and change types and number of parameters
     public static WalletView newInstance(String param1, String param2) {
         WalletView fragment = new WalletView();
@@ -83,24 +59,21 @@ public class WalletView extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        final View rootView = inflater.inflate(R.layout.portfel_fragment, container, false);
-        // Deklaracja i inicjalizacja ViewModel
-        final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
-        currencyViewModel.getAllCurrencySettings().observe(this, new Observer<List<CurrencySetting>>() {
-            @Override
-            public void onChanged(@Nullable final List<CurrencySetting> words) {
 
-                for (CurrencySetting word : words) {
-                    Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
-                    Log.d("petla", word.toString());
-                    if (word.isNotificationBool()) {
-                        Log.d("Pusto", "pusto");
-                        noTextAdd();
-                    }
+        final View rootView = inflater.inflate(R.layout.portfel_fragment, container, false);
+
+        final CurrencySettingViewModel currencyViewModel = ViewModelProviders.of(this).get(CurrencySettingViewModel.class);
+        currencyViewModel.getAllCurrencySettings().observe(this, words -> {
+
+            for (CurrencySetting word : words) {
+                Log.d("Czy Pusty", String.valueOf(word.isNotificationBool()));
+                Log.d("petla", word.toString());
+                if (word.isNotificationBool()) {
+                    Log.d("Pusto", "pusto");
+                    noTextAdd();
                 }
-                adapter.setSettings(words);
             }
+            adapter.setSettings(words);
         });
 
         noWalletText = rootView.findViewById(R.id.noWalletText);
@@ -116,13 +89,6 @@ public class WalletView extends Fragment {
 
 
         return rootView;
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
     }
 
     @Override
