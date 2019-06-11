@@ -11,14 +11,13 @@ import androidx.fragment.app.Fragment;
 import io.reactivex.Observable;
 import io.reactivex.observers.DisposableObserver;
 import io.reactivex.schedulers.Schedulers;
-import pl.wat.pks.models.dto.BTCCurencyListDTO;
-import pl.wat.pks.models.dto.CryptoDTO;
-import pl.wat.pks.rest.RestController;
-
-
 import org.eazegraph.lib.charts.ValueLineChart;
 import org.eazegraph.lib.models.ValueLinePoint;
 import org.eazegraph.lib.models.ValueLineSeries;
+import pl.wat.pks.models.dto.BTCCurencyListDTO;
+import pl.wat.pks.models.dto.CryptoDTO;
+import pl.wat.pks.models.dto.XYCorordinates;
+import pl.wat.pks.rest.RestController;
 
 
 /**
@@ -46,6 +45,8 @@ public class AktualneKursyTab extends Fragment {
 
     private CryptoDTO cryptoDTO;
     private BTCCurencyListDTO btcCurencyListDTO;
+
+    private ValueLineChart mCubicValueLineChart;
 
     public AktualneKursyTab() {
         // Required empty public constructor
@@ -117,6 +118,7 @@ public class AktualneKursyTab extends Fragment {
                     public void onNext(CryptoDTO value) {
                         Log.d(getTag(), "onNext: " + value.status());
                         cryptoDTO = value;
+                        setValueForChart(value);
                     }
 
                     @Override
@@ -133,6 +135,20 @@ public class AktualneKursyTab extends Fragment {
                 });
     }
 
+    private void setValueForChart(CryptoDTO value) {
+        ValueLineSeries series = new ValueLineSeries();
+        series.setColor(0xFF56B7F1);
+        for(XYCorordinates corordinates : value.coordniateList()){
+            series.addPoint(new ValueLinePoint(corordinates.price()));
+        }
+        mCubicValueLineChart.clearStandardValues();
+        mCubicValueLineChart.setShowIndicator(false);
+        mCubicValueLineChart.addSeries(series);
+        mCubicValueLineChart.setUseDynamicScaling(true);
+        mCubicValueLineChart.startAnimation();
+        mCubicValueLineChart.refreshDrawableState();
+    }
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -140,26 +156,8 @@ public class AktualneKursyTab extends Fragment {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.aktualne_kursy_fragment, container, false);
 
-        ValueLineChart mCubicValueLineChart = rootView.findViewById(R.id.cubiclinechart);
+        mCubicValueLineChart = rootView.findViewById(R.id.cubiclinechart);
 
-        ValueLineSeries series = new ValueLineSeries();
-        series.setColor(0xFF56B7F1);
-
-        series.addPoint(new ValueLinePoint("Jan", 2.4f));
-        series.addPoint(new ValueLinePoint("Feb", 3.4f));
-        series.addPoint(new ValueLinePoint("Mar", .4f));
-        series.addPoint(new ValueLinePoint("Apr", 1.2f));
-        series.addPoint(new ValueLinePoint("Mai", 2.6f));
-        series.addPoint(new ValueLinePoint("Jun", 1.0f));
-        series.addPoint(new ValueLinePoint("Jul", 3.5f));
-        series.addPoint(new ValueLinePoint("Aug", 2.4f));
-        series.addPoint(new ValueLinePoint("Sep", 2.4f));
-        series.addPoint(new ValueLinePoint("Oct", 3.4f));
-        series.addPoint(new ValueLinePoint("Nov", .4f));
-        series.addPoint(new ValueLinePoint("Dec", 1.3f));
-
-        mCubicValueLineChart.addSeries(series);
-        mCubicValueLineChart.startAnimation();
         return rootView;
     }
 
