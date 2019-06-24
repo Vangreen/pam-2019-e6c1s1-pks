@@ -1,3 +1,6 @@
+/**
+ * baza danych ustawień kryptowalut
+ */
 package pl.wat.pks.database;
 
 import android.content.Context;

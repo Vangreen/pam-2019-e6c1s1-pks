@@ -1,3 +1,7 @@
+/**
+ * Widok portfela
+ */
+
 package pl.wat.pks.views;
 
 import android.content.Context;

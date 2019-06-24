@@ -1,3 +1,6 @@
+/**
+ * adapter recyclerview portfela
+ */
 package pl.wat.pks.currency.wallet;
 
 import android.view.LayoutInflater;

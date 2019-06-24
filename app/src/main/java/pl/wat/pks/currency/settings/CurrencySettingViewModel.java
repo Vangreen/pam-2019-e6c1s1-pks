@@ -1,3 +1,6 @@
+/**
+ * Model ustawień kryptowaluty
+ */
 package pl.wat.pks.currency.settings;
 
 import android.app.Application;
@@ -36,6 +39,7 @@ public class CurrencySettingViewModel extends AndroidViewModel {
     public void update(CurrencySetting word) {
         repository.update(word);
     }
+
 
     public void updateAll(List<CurrencySetting> words) {
         repository.updateAll(words);

@@ -1,3 +1,6 @@
+/**
+ * Widok ustawień kryptowalut
+ */
 package pl.wat.pks.views;
 
 import android.content.Context;

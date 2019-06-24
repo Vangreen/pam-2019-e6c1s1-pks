@@ -1,3 +1,6 @@
+/**
+ * Widok wykresów
+ */
 package pl.wat.pks.views;
 
 import android.content.Context;

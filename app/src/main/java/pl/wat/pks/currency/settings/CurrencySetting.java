@@ -1,3 +1,6 @@
+/**
+ * Klasa przechowująca ustawienia dotyczące kryotowaluty
+ */
 package pl.wat.pks.currency.settings;
 
 import androidx.room.Entity;
@@ -21,6 +24,16 @@ public class CurrencySetting {
     public double balance;
     public String account;
 
+    /**
+     * @param id id ustawienia
+     * @param currencyName nazwa kryptowaluty
+     * @param notificationBool flaga powiadomień
+     * @param exchangeRateMax próg maksymalny
+     * @param exchangeRateMin próg minimalny
+     * @param currencyIcon ikona
+     * @param balance stan konta
+     * @param account id konta
+     */
     public CurrencySetting(int id, String currencyName, boolean notificationBool, double exchangeRateMax, double exchangeRateMin, int currencyIcon, double balance, String account) {
         this.id = id;
         this.currencyName = currencyName;
@@ -44,6 +57,8 @@ public class CurrencySetting {
 
     public CurrencySetting() {
     }
+
+
 
     public static CurrencySetting[] populateData() {
         Random random = new Random();

@@ -1,3 +1,7 @@
+/**
+ * Dodatkowa obsługa bd
+ * metody do obsługi
+ */
 package pl.wat.pks.currency.settings;
 
 import android.app.Application;

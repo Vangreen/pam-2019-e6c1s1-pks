@@ -1,3 +1,6 @@
+/**
+ * Obługa bazy danych
+ */
 package pl.wat.pks.currency.settings;
 
 import androidx.lifecycle.LiveData;

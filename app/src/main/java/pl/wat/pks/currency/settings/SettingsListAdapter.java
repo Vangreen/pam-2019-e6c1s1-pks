@@ -1,3 +1,6 @@
+/**
+ * Adapter recycle view ustawień
+ */
 package pl.wat.pks.currency.settings;
 
 import android.text.Editable;
@@ -59,6 +62,13 @@ public class SettingsListAdapter extends RecyclerView.Adapter<SettingsListAdapte
                                           int count, int after) {
             }
 
+            /**
+             * Handler zmian edittext
+             * @param s
+             * @param start
+             * @param before
+             * @param count
+             */
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(!(s.toString().isEmpty())) {
